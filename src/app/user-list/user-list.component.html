@@ -1,0 +1,43 @@
+<div class="container">
+  <!-- Header -->
+  <header class="text-center my-4">
+    <h2 class="p">User List</h2>
+  </header>
+
+  <!-- Loading Bar -->
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <!-- Search Input -->
+  <div class="row mb-3 d-flex justify-content-center">
+    <div class="col-md-6">
+      <input type="number" [(ngModel)]="searchQuery" placeholder="Search by user ID..." class="form-control" />
+    </div>
+  </div>
+
+  <!-- Users List -->
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-5">
+      <mat-card *ngFor="let item of users | search:searchQuery" class="example-card mb-3" appearance="outlined">
+        <a [routerLink]="['/details', item.id]">
+          <mat-card-header>
+            <mat-card-title-group class="text-primary">
+              <!-- <mat-card-title>{{item.id}}</mat-card-title> -->
+              <mat-card-title> {{item.id}} - {{item.first_name}} {{item.last_name}}</mat-card-title>
+              <mat-card-subtitle class="text-dark fw-bold">{{item.email}}</mat-card-subtitle>
+              <img class="" [src]="item.avatar" alt="{{item.first_name}}'s avatar">
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="text-dark">Click to view details</p>
+          </mat-card-content>
+        </a>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+  </div>
+</div>
+<div class="col-md-11 ">
+      <mat-paginator class=" bg-transparent text-info " [length]="totalUsers" [pageSize]="pageSize" (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
